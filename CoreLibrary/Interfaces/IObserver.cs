@@ -2,7 +2,12 @@ using CoreLibrary.Entities;
 
 public interface IObserver
 {
-    void Update(Player player, string happening);
+    void Update(Monster monster);
+}
 
-    string GetObserverName();
+public interface IObservable
+{
+    void AddObserver(IObserver observer);
+    void RemoveObserver(IObserver observer);
+    void NotifyObservers();
 }

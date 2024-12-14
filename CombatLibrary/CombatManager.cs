@@ -30,10 +30,9 @@ namespace CombatLibrary
         public void DefendAction(Monster defender)
         {
             SetStrategy(new DefendStrategy());
-            ExecuteAction(defender, defender);  // O defensor está defendendo a si mesmo
+            ExecuteAction(defender, defender); 
         }
 
-        // Método para realizar uma habilidade especial (usada pelo dragão)
         public void SpecialAbilityAction(Monster attacker, Monster defender)
         {
             SetStrategy(new SpecialAbilityStrategy());

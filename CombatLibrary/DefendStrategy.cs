@@ -8,7 +8,7 @@ namespace CombatLibrary
         public void Execute(Monster defender, Monster attacker)
         {
             int initialDefense = defender.Defense;
-            defender.Defense += 10; // Aumenta a defesa
+            defender.Defense += 10;
             Console.WriteLine($"{defender.Name} se defende e aumenta sua defesa!");
         }
     }

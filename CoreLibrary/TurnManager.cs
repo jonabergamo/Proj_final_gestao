@@ -4,7 +4,7 @@ namespace CoreLibrary
 {
     public class TurnManager
     {
-        private int currentTurn = 1;  // Inicia no turno 1
+        private int currentTurn = 1;
 
         public void StartTurn(Monster playerMonster, Monster opponentMonster)
         {

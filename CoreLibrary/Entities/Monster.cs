@@ -1,13 +1,24 @@
 ﻿namespace CoreLibrary.Entities
 {
-    public abstract class Monster
+    public abstract class Monster :IObservable
     {
+        private readonly List<IObserver> observers = new();
         private int attack;
 
         public string Name { get; set; }
         public int AttackPower { get; set; }
         public int Defense { get; set; }
-        public int Health { get; set; }
+        private int health;
+
+        public int Health
+        {
+            get => health;
+            set
+            {
+                health = value;
+                NotifyObservers(); // Notifica os observadores ao alterar a saúde
+            }
+        }
         public bool IsDefending { get; set; }
         public string AbilityName { get; set; }
 
@@ -20,7 +31,23 @@
             IsDefending = false;
         }
 
+        public void AddObserver(IObserver observer)
+        {
+            observers.Add(observer);
+        }
 
+        public void RemoveObserver(IObserver observer)
+        {
+            observers.Remove(observer);
+        }
+
+        public void NotifyObservers()
+        {
+            foreach (var observer in observers)
+            {
+                observer.Update(this);
+            }
+        }
 
         public void Atack(Monster target)
         {

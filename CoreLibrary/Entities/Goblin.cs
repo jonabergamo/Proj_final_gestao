@@ -10,7 +10,6 @@
         public override void SpecialAbility()
         {
             Console.WriteLine($"{Name} usa {AbilityName}, causando um ataque rápido e furtivo!");
-            // Aqui você pode adicionar lógica especial para a habilidade do Goblin.
         }
     }
 }
