@@ -3,11 +3,25 @@ using CoreLibrary;
 
 public class Game
 {
+    /// <summary>
+    /// Instância única da classe Game (Singleton).
+    /// </summary>
     private static Game? instance;
+
+    /// <summary>
+    /// Objeto para controle de concorrência na criação da instância.
+    /// </summary>
     private static readonly object lockObject = new();
 
+    /// <summary>
+    /// Construtor privado para impedir a criação de múltiplas instâncias.
+    /// </summary>
     private Game() { }
 
+    /// <summary>
+    /// Propriedade que retorna a instância única da classe Game.
+    /// Implementa o padrão Singleton.
+    /// </summary>
     public static Game getInstance
     {
         get
@@ -19,14 +33,17 @@ public class Game
         }
     }
 
+    /// <summary>
+    /// Inicia o jogo, configurando os jogadores, monstros e turnos.
+    /// </summary>
     public void StartGame()
     {
+        // Criação dos jogadores
         Player player1 = new("Player 1");
         Player player2 = new("Player 2");
 
-        MonsterFactory factory = new();
-
         // Criação de monstros usando a fábrica
+        MonsterFactory factory = new();
         player1.AddMonster(factory.CreateMonster("Robot", "Robo", 40, 25, 200));
         player1.AddMonster(factory.CreateMonster("Dragon", "Dragão", 50, 35, 180));
         player2.AddMonster(factory.CreateMonster("Zombie", "Zumbi", 30, 15, 250));
@@ -52,6 +69,7 @@ public class Game
         bool gameOver = false;
         int round = 1;
 
+        // Loop principal do jogo
         while (!gameOver)
         {
             Console.WriteLine($"\n--- Turno {round} ---");

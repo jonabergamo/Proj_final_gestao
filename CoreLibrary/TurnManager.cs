@@ -2,25 +2,35 @@
 
 namespace CoreLibrary
 {
+    /// <summary>
+    /// Gerencia os turnos do jogo, permitindo que cada jogador realize ações em ordem alternada.
+    /// </summary>
     public class TurnManager
     {
+        /// <summary>
+        /// Número do turno atual.
+        /// </summary>
         private int currentTurn = 1;
 
+        /// <summary>
+        /// Inicia um turno, permitindo que o jogador atual escolha uma ação.
+        /// </summary>
+        /// <param name="playerMonster">Monstro do jogador atual.</param>
+        /// <param name="opponentMonster">Monstro do oponente.</param>
         public void StartTurn(Monster playerMonster, Monster opponentMonster)
         {
-            // Limpa o console a cada turno para garantir uma tela limpa
+            // Limpa o console para exibir informações atualizadas
             Console.Clear();
 
-            // Exibe as informações atuais de ambos os monstros
+            // Mostra o status atual dos monstros
             ShowMonsterStatus(playerMonster, opponentMonster);
 
-            // Exibe o turno atual e o jogador que está fazendo a escolha
+            // Indica qual jogador está no turno
             Console.WriteLine($"\n===== Turno {currentTurn} =====");
-
             Monster currentPlayerMonster = currentTurn % 2 != 0 ? playerMonster : opponentMonster;
             Console.WriteLine($"É a vez de {currentPlayerMonster.Name} tomar uma ação!");
 
-            // Mostra o menu de ações
+            // Menu de ações disponíveis
             Console.WriteLine("\nEscolha uma ação:");
             Console.WriteLine("1. Atacar");
             Console.WriteLine("2. Defender");
@@ -28,7 +38,7 @@ namespace CoreLibrary
 
             string choice = Console.ReadLine();
 
-            // Ação com base na escolha do jogador
+            // Executa a ação escolhida
             switch (choice)
             {
                 case "1":
@@ -44,36 +54,46 @@ namespace CoreLibrary
                 default:
                     Console.WriteLine("Escolha inválida.");
                     StartTurn(playerMonster, opponentMonster);
-                    return;  // Retorna para evitar incrementar o turno em caso de erro
+                    return; // Retorna para evitar incrementar o turno
             }
 
-            // Incrementa o turno após a ação
+            // Incrementa o turno
             currentTurn++;
 
-            // Continuar o ciclo de turnos
+            // Aguarda para continuar o jogo
             PressEnterToContinue();
             StartTurn(playerMonster, opponentMonster);
         }
 
+        /// <summary>
+        /// Realiza um ataque entre o atacante e o defensor.
+        /// </summary>
+        /// <param name="attacker">Monstro atacante.</param>
+        /// <param name="defender">Monstro defensor.</param>
         private void Attack(Monster attacker, Monster defender)
         {
-            // Exibe a ação e o dano causado sem limpar o status
             Console.WriteLine($"\n{attacker.Name} ataca {defender.Name}!");
             int finalDamage = defender.TakeDamage(attacker.AttackPower);
             Console.WriteLine($"{attacker.Name} causou {finalDamage} de dano!");
             Console.WriteLine($"{defender.Name} agora tem {defender.Health} de vida.");
         }
 
+        /// <summary>
+        /// Realiza a ação de defesa do monstro.
+        /// </summary>
+        /// <param name="monster">Monstro que está se defendendo.</param>
         private void Defend(Monster monster)
         {
-            // Exibe a ação de defesa sem limpar o status
             Console.WriteLine($"\n{monster.Name} está se defendendo, preparando para reduzir o dano recebido!");
-            // Aqui, você pode implementar a lógica de aumentar temporariamente a defesa
         }
 
+        /// <summary>
+        /// Exibe o status atual dos dois monstros.
+        /// </summary>
+        /// <param name="playerMonster">Monstro do jogador.</param>
+        /// <param name="opponentMonster">Monstro do oponente.</param>
         private void ShowMonsterStatus(Monster playerMonster, Monster opponentMonster)
         {
-            // Sempre mostrar as vidas e o nome dos monstros no topo da tela
             Console.WriteLine("======================================");
             Console.WriteLine($"Player 1: {playerMonster.Name}");
             Console.WriteLine($"Vida: {playerMonster.Health}");
@@ -83,6 +103,9 @@ namespace CoreLibrary
             Console.WriteLine("======================================");
         }
 
+        /// <summary>
+        /// Aguarda o jogador pressionar Enter para continuar o jogo.
+        /// </summary>
         private void PressEnterToContinue()
         {
             Console.WriteLine("\nPressione Enter para continuar...");
