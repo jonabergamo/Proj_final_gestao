@@ -2,20 +2,30 @@
 {
     public class Robot : Monster
     {
-
-        public override void Atack()
+        private bool defending { get; set; }
+        public Robot(string name, int attack, int defense, int health) : base(name, attack, defense, health)
         {
-            throw new NotImplementedException();
+            base.AbilityName = "Escudo Biônico";
+            defending = false;
         }
 
-        public override void Defend()
+
+        public override void SpecialAbility()
         {
-            throw new NotImplementedException();
+            defending = true;
         }
 
-        public override void UseSpecialAbility()
+        public override int TakeDamage(int damage)
         {
-            throw new NotImplementedException();
+            if (defending)
+            {
+                this.defending = false;
+                return 0;
+            }
+            int finalDamage = Math.Max(0, damage - Defense);
+            Health -= finalDamage;
+
+            return finalDamage;
         }
     }
 }

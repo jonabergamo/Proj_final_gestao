@@ -2,32 +2,37 @@
 {
     public class Player
     {
-        public IList<Monster> monsters { get; set; }
-        public int score { get; set; }
-        string name { get; set; }
+        public IList<Monster> Monsters { get; set; }
+        public int Score { get; set; }
+        public string Name { get; set; }
 
         public Player(string name)
         {
-            this.name = name;
-            score = 0;
-            monsters = new List<Monster>();
-        }
-
-
-        public void TakeTurn()
-        {
-
-        }
-
-        public void SelectAction()
-        {
-
+            Name = name;
+            Score = 0;
+            Monsters = new List<Monster>();
         }
 
         public void AddMonster(Monster monster)
         {
-            monsters.Add(monster);
+            Monsters.Add(monster);
         }
 
+        public Monster SelectMonster()
+        {
+            Console.WriteLine($"{Name}, escolha um monstro para batalhar:");
+            for (int i = 0; i < Monsters.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {Monsters[i].Name} (Vida: {Monsters[i].Health}, Ataque: {Monsters[i].AttackPower})");
+            }
+
+            int choice;
+            do
+            {
+                Console.Write("Digite o número do monstro: ");
+            } while (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > Monsters.Count);
+
+            return Monsters[choice - 1];
+        }
     }
 }

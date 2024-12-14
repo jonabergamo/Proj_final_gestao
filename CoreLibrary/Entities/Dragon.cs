@@ -2,19 +2,15 @@
 {
     public class Dragon : Monster
     {
-        public override void Atack()
+        public Dragon(string name, int attack, int defense, int health) : base(name, attack, defense, health)
         {
-            throw new NotImplementedException();
+            base.AbilityName = "Sopro Infernal";
+
         }
 
-        public override void Defend()
+        public override void SpecialAbility()
         {
-            throw new NotImplementedException();
-        }
-
-        public override void UseSpecialAbility()
-        {
-            throw new NotImplementedException();
+            Console.WriteLine("testando habilidade special do dragão");
         }
     }
 }
